@@ -15,9 +15,7 @@
   <div class="paper-grain"></div>
   <header class="topbar">
     <a class="wordmark" href="#home">THE READING ROOM<span>PERSONAL LIBRARY & JOURNAL</span></a>
-    <nav>
-      <a href="#shelf">MY BOOKS</a><a href="#journal">READING LOG</a><a href="#quotes">QUOTES</a>
-    </nav>
+    <nav><a href="#shelf">MY BOOKS</a><a href="#calendar">CALENDAR</a><a href="#journal">DAILY LOG</a></nav>
     <button class="add-button" id="openAddTop">＋ 책 추가</button>
   </header>
 
@@ -29,17 +27,39 @@
         <p class="intro">책으로 채워가는 나만의 작은 세계.<br>읽고, 기억하고, 오래 간직하는 문장들.</p>
         <a class="text-link" href="#shelf">서재 둘러보기 <span>↗</span></a>
       </div>
-      <div class="hero-image" role="img" aria-label="햇살이 비치는 빈티지 서재">
-        <div class="image-note">EST. 2026<br>VOL. 01</div>
-      </div>
+      <div class="hero-image" role="img" aria-label="햇살이 비치는 빈티지 서재"><div class="image-note">EST. 2026<br>VOL. 01</div></div>
       <div class="hero-caption">SLOW DOWN. TURN A PAGE.</div>
     </section>
 
-    <section class="stats-strip" aria-label="독서 통계">
-      <div><strong id="bookCount">03</strong><span>BOOKS READ</span></div>
-      <div><strong id="quoteCount">03</strong><span>KEPT QUOTES</span></div>
+    <section class="stats-strip">
+      <div><strong id="bookCount">00</strong><span>BOOKS READ</span></div>
+      <div><strong id="quoteCount">00</strong><span>KEPT QUOTES</span></div>
       <div><strong id="yearCount">2026</strong><span>READING YEAR</span></div>
       <p>“책장은 내가 지나온 세계의 지도다.”</p>
+    </section>
+
+    <section class="section calendar-section" id="calendar">
+      <div class="section-heading">
+        <div><p class="eyebrow">A YEAR IN BOOKS</p><h2>Reading calendar<span>.</span></h2></div>
+        <p class="section-note">날짜마다 읽은 책을 표지로 기록해요.<br>하루를 누르면 그날의 독서 일지가 열립니다.</p>
+      </div>
+      <div class="year-summary">
+        <div><strong id="calendarYearTotal">0</strong><span>BOOKS THIS YEAR</span></div>
+        <div><strong id="calendarDayTotal">0</strong><span>READING DAYS</span></div>
+        <div><strong id="calendarMonthTotal">0</strong><span>ACTIVE MONTHS</span></div>
+      </div>
+      <div class="calendar-toolbar">
+        <button class="calendar-arrow" id="prevMonth" aria-label="이전 달">←</button>
+        <h3 id="calendarMonthLabel">2026년 11월</h3>
+        <button class="calendar-arrow" id="nextMonth" aria-label="다음 달">→</button>
+        <button class="today-button" id="todayMonth">오늘</button>
+      </div>
+      <div class="calendar-weekdays"><span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span></div>
+      <div class="calendar-grid" id="calendarGrid"></div>
+      <div class="day-detail">
+        <div class="day-detail-heading"><p class="eyebrow">DAILY READING</p><h3 id="selectedDayLabel">날짜를 선택해 주세요</h3></div>
+        <div class="day-books" id="selectedDayBooks"><p class="day-empty">달력에서 날짜를 선택하면 그날 읽은 책의 표지가 표시됩니다.</p></div>
+      </div>
     </section>
 
     <section class="section shelf-section" id="shelf">
@@ -58,20 +78,10 @@
       <p class="empty-state" id="emptyState" hidden>아직 이 서가에 책이 없어요. 첫 번째 책을 기록해 보세요.</p>
     </section>
 
-    <section class="quote-section" id="quotes">
-      <div class="quote-heading"><p class="eyebrow">WORDS TO KEEP</p><h2>A sentence<br>to remember<span>.</span></h2></div>
-      <div class="quote-content">
-        <span class="quote-mark">“</span>
-        <blockquote id="featuredQuote">책은 우리가 살아보지 못한 삶을<br>잠시 살아보게 한다.</blockquote>
-        <p id="featuredQuoteSource">— 나의 독서 노트</p>
-        <button class="text-link" id="nextQuote">다른 문장 읽기 ↗</button>
-      </div>
-    </section>
-
     <section class="section journal-section" id="journal">
       <div class="section-heading">
-        <div><p class="eyebrow">LITTLE MOMENTS, BIG STORIES</p><h2>Reading journal<span>.</span></h2></div>
-        <p class="section-note">책과 함께한 시간을<br>차곡차곡 기록합니다.</p>
+        <div><p class="eyebrow">LITTLE MOMENTS, BIG STORIES</p><h2>Daily reading log<span>.</span></h2></div>
+        <p class="section-note">날짜순으로 모아보는<br>나의 독서 일지.</p>
       </div>
       <div class="journal-list" id="journalList"></div>
     </section>
@@ -82,11 +92,10 @@
       <span>THE READING ROOM · 2026</span>
     </section>
   </main>
-
   <footer><span>THE READING ROOM</span><span>MADE WITH BOOKS & TIME</span></footer>
 
   <dialog id="bookDialog">
-    <form id="bookForm" method="dialog">
+    <form id="bookForm">
       <div class="dialog-top"><p class="eyebrow">ADD TO YOUR LIBRARY</p><button type="button" class="close-button" id="closeDialog">×</button></div>
       <h2>책 한 권을 기록해요<span>.</span></h2>
       <input type="hidden" id="bookId">
@@ -94,13 +103,17 @@
       <label>저자<input id="author" placeholder="저자 이름"></label>
       <div class="form-row">
         <label>장르<select id="genre"><option>소설</option><option>에세이</option><option>인문</option><option>기타</option></select></label>
-        <label>읽은 날짜<input id="readDate" type="date"></label>
+        <label>독서 기록 날짜 <small>(책을 읽은 날을 모두 추가하세요)</small>
+          <div class="reading-date-entry"><input id="readingDateInput" type="date"><button type="button" class="add-quote-button" id="addReadingDate">＋ 날짜 추가</button></div>
+          <div id="readingDateList" class="reading-date-list"></div>
+        </label>
       </div>
       <label>책 표지 이미지 주소 <small>(선택 · 이미지 URL)</small><input id="cover" type="url" placeholder="https://..."></label>
       <label>별점 <span class="hint">별을 눌러 선택하세요</span><div class="star-picker" id="starPicker" role="group" aria-label="별점"></div></label>
       <label>독서평<textarea id="review" rows="3" placeholder="이 책을 읽고 어떤 생각이 들었나요?"></textarea></label>
-      <label>인상 깊은 문장<textarea id="quote" rows="2" placeholder="오래 간직하고 싶은 문장을 적어보세요."></textarea></label>
-      <label>문장 출처 / 페이지<input id="quoteSource" placeholder="예: 파반느, p. 128"></label>
+      <div class="quote-form-heading"><strong>이 책에서 간직할 문장</strong><span>문장은 책별로 여러 개 저장할 수 있어요.</span></div>
+      <div id="quoteInputs"></div>
+      <button type="button" class="add-quote-button" id="addQuote">＋ 문장 추가</button>
       <button class="submit-button" type="submit">서재에 책장 꽂기</button>
     </form>
   </dialog>

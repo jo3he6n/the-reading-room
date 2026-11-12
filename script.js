@@ -1,4 +1,8 @@
-const starterBooks = [];
+const starterBooks = [
+  {id:"b1",title:"파반느",author:"박민규",genre:"소설",date:"2026-11-09",readingDates:["2026-11-09"],rating:5,publisher:"",pages:320,currentPage:320,status:"finished",review:"사랑과 상실, 그리고 서로의 삶에 남긴 흔적을 생각하게 한 이야기.",quotes:[{text:"우리는 서로의 삶에 어떤 흔적을 남기며 살아가는 걸까.",source:"나의 독서 노트"}],cover:""},
+  {id:"b2",title:"노르웨이의 숲",author:"무라카미 하루키",genre:"소설",date:"2026-10-20",readingDates:["2026-10-20"],rating:4,publisher:"",pages:280,currentPage:280,status:"finished",review:"상실과 기억을 따라가며 청춘의 불완전함을 돌아보게 하는 작품.",quotes:[{text:"기억은 사람을 조용히 다른 곳으로 데려간다.",source:"나의 독서 노트"}],cover:""},
+  {id:"b3",title:"이방인",author:"알베르 카뮈",genre:"인문",date:"2026-09-14",readingDates:["2026-09-14"],rating:4,publisher:"",pages:160,currentPage:160,status:"finished",review:"당연하다고 여겼던 감정과 사회의 기준을 낯설게 바라보게 했다.",quotes:[{text:"오늘 엄마가 죽었다. 어쩌면 어제였는지도 모른다.",source:"첫 문장"}],cover:""}
+];
 const $=id=>document.getElementById(id), safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 let books=JSON.parse(localStorage.getItem("readingRoomBooks")||"null")||starterBooks;
 books=books.map(b=>{
@@ -13,11 +17,10 @@ let genres=JSON.parse(localStorage.getItem("readingRoomGenres")||"null")||["소�
 let genreColors=JSON.parse(localStorage.getItem("readingRoomGenreColors")||"null")||{"소설":"#78836b","에세이":"#a77b58","인문":"#8b4f4d","시":"#8c8aa2","역사":"#536b7a","사회":"#9a8758","과학":"#5e817e","철학":"#685b72","예술":"#b06d55","자기계발":"#718b75","경제·경영":"#526b59","여행":"#b27e50","만화":"#9a6b82","기타":"#81776b"};
 let editingDailyEnds={};
 let selectedRating=5,activeGenre="전체",activeStatus="all",calendarCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1),selectedCalendarDate="",editingReadingDates=[],selectedQuoteBook="",favoriteBookId=localStorage.getItem("readingRoomFavoriteBookId")||"";
-const notifyCloud=()=>window.dispatchEvent(new CustomEvent("readingroom:local-change"));
-const save=()=>{localStorage.setItem("readingRoomBooks",JSON.stringify(books));notifyCloud()};
-const saveGenres=()=>{localStorage.setItem("readingRoomGenres",JSON.stringify(genres));notifyCloud()};
-const saveGenreColors=()=>{localStorage.setItem("readingRoomGenreColors",JSON.stringify(genreColors));notifyCloud()};
-const saveWishlist=()=>{localStorage.setItem("readingRoomWishlist",JSON.stringify(wishlist));notifyCloud()};
+const save=()=>localStorage.setItem("readingRoomBooks",JSON.stringify(books));
+const saveGenres=()=>localStorage.setItem("readingRoomGenres",JSON.stringify(genres));
+const saveGenreColors=()=>localStorage.setItem("readingRoomGenreColors",JSON.stringify(genreColors));
+const saveWishlist=()=>localStorage.setItem("readingRoomWishlist",JSON.stringify(wishlist));
 const readingDatesOf=b=>Array.isArray(b.readingDates)?b.readingDates:(b.date?[b.date]:[]);
 const lastDateOf=b=>readingDatesOf(b).slice().sort().slice(-1)[0]||"";
 const isDone=b=>b.status==="finished"||(Number(b.pages)>0&&Number(b.currentPage)>=Number(b.pages));
@@ -139,12 +142,12 @@ function renderFavoriteBook(){
  const select=$("favoriteBookSelect"),img=$("favoriteBookImage"),fallback=$("favoriteBookFallback");
  if(!select)return;
  select.innerHTML='<option value="">최애 책 고르기</option>'+books.map(b=>`<option value="${safe(b.id)}">${safe(b.title)}</option>`).join("");
- if(favoriteBookId&&!books.some(b=>b.id===favoriteBookId)){favoriteBookId="";localStorage.setItem("readingRoomFavoriteBookId","");notifyCloud()}
+ if(favoriteBookId&&!books.some(b=>b.id===favoriteBookId))favoriteBookId="";
  select.value=favoriteBookId;
  const b=books.find(x=>x.id===favoriteBookId);
  if(b?.cover){img.src=b.cover;img.alt=`${b.title} 표지`;img.hidden=false;fallback.hidden=true;fallback.textContent=""}
  else if(b){img.hidden=true;fallback.hidden=false;fallback.textContent=b.title}
- else{img.hidden=true;fallback.hidden=false;fallback.innerHTML="MY CURRENT FAVORITE<br>THE BOOK I LOVE"}
+ else{img.hidden=true;fallback.hidden=true;fallback.textContent=""}
 }
 function renderWishlist(){
  $("wishList").innerHTML=wishlist.length?wishlist.map((w,i)=>`<article class="wish-item"><div><strong>${safe(w.title)}</strong><small>${safe(w.author||"저자 미기록")} · ${safe(w.genre||"기타")}</small></div><button data-remove-wish="${i}">목록에서 삭제</button></article>`).join(""):'<p class="empty-state">아직 담아둔 책이 없어요.</p>';
@@ -174,10 +177,7 @@ $("readingDateList").addEventListener("click",e=>{const b=e.target.closest("[dat
 $("starPicker").addEventListener("click",e=>{const b=e.target.closest("[data-star]");if(b){selectedRating=Number(b.dataset.star);renderStars()}});
 $("shelfTabs").addEventListener("click",e=>{const b=e.target.closest("[data-status]");if(!b)return;activeStatus=b.dataset.status;document.querySelectorAll("#shelfTabs button").forEach(x=>x.classList.toggle("active",x===b));render()});
 $("shelfSort").addEventListener("change",render);
-$("favoriteBookToggle").addEventListener("click",()=>{const panel=$("favoriteBookPicker");panel.hidden=!panel.hidden;if(!panel.hidden)$("favoriteBookSelect").focus()});
-$("favoriteBookSelect").addEventListener("change",e=>{favoriteBookId=e.target.value;localStorage.setItem("readingRoomFavoriteBookId",favoriteBookId);notifyCloud();renderFavoriteBook();$("favoriteBookPicker").hidden=true});
-$("logoutButton").addEventListener("click",()=>window.dispatchEvent(new Event("readingroom:logout")));
-window.addEventListener("readingroom:remote-data",()=>{try{books=JSON.parse(localStorage.getItem("readingRoomBooks")||"[]");wishlist=JSON.parse(localStorage.getItem("readingRoomWishlist")||"[]");genres=JSON.parse(localStorage.getItem("readingRoomGenres")||"null")||genres;genreColors=JSON.parse(localStorage.getItem("readingRoomGenreColors")||"null")||genreColors;favoriteBookId=localStorage.getItem("readingRoomFavoriteBookId")||"";render()}catch(error){console.error("원격 서재 데이터를 화면에 반영하지 못했어요.",error)}});
+$("favoriteBookSelect").addEventListener("change",e=>{favoriteBookId=e.target.value;localStorage.setItem("readingRoomFavoriteBookId",favoriteBookId);renderFavoriteBook()});
 $("bookGrid").addEventListener("click",e=>{const v=e.target.closest("[data-view]");if(v)openView(books.find(b=>b.id===v.dataset.view))});
 $("closeView").onclick=()=>$("viewDialog").close();
 $("viewDialog").addEventListener("click",e=>{if(e.target===$("viewDialog"))$("viewDialog").close();const ed=e.target.closest("[data-edit-from-view]");if(ed){const b=books.find(x=>x.id===ed.dataset.editFromView);$("viewDialog").close();openDialog(b)}});

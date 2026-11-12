@@ -224,15 +224,10 @@ label input,label textarea,label select{border-radius:14px;padding:12px 14px;fon
 
 
 /* v8 — 누적 마지막 페이지 입력, 요일 통계, 최애 책 */
-.favorite-book-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;padding:5% 12%;z-index:0;filter:drop-shadow(0 12px 18px #24170f30)}
+.favorite-book-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .favorite-book-fallback{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;padding:38px;background:#8c6b50;color:#f7ecda;text-align:center;font-size:clamp(24px,3vw,40px);line-height:1.5}
- .favorite-book-tools{position:absolute;right:13px;top:13px;z-index:4}
-.favorite-book-tools>button{width:30px;height:30px;border:1px solid #ffffff70;border-radius:50%;background:#f8f3e9b8;color:#665544;font-size:16px;opacity:.18;cursor:pointer;transition:opacity .2s,transform .2s;backdrop-filter:blur(8px)}
-.hero-image:hover .favorite-book-tools>button,.favorite-book-tools>button:focus-visible{opacity:.9}
-.favorite-book-tools>button:hover{transform:rotate(20deg)}
-.favorite-book-tools>div{position:absolute;right:0;top:38px;width:170px;padding:12px;background:#f8f3e9ed;border:1px solid #d9cdbb;border-radius:12px;box-shadow:0 8px 25px #30271f20}
-.favorite-book-tools label{display:block;font-size:10px;color:#81776b;margin-bottom:5px}
-.favorite-book-tools select{width:100%;font:inherit;font-size:12px;padding:7px;border:1px solid #d9cdbb;border-radius:8px;background:#fffaf2;color:#30271f}
+.favorite-picker{position:absolute;left:16px;bottom:16px;z-index:3;margin:0;padding:9px 12px;background:#eee7dbed;color:#6a5745;font:9px var(--sans);letter-spacing:.12em;box-shadow:0 2px 8px #24170f20}
+.favorite-picker select{display:block;max-width:210px;margin-top:6px;padding:7px 9px;border:1px solid #cfc2ae;background:#fffaf2;color:var(--ink);font:12px var(--sans);letter-spacing:0}
 .image-note{z-index:2}
 .day-pages-end{display:flex;align-items:center;gap:7px;margin-top:5px}
 .day-end-input{width:76px;border:1px solid var(--line);border-radius:999px;background:#fffaf2;padding:7px 9px;text-align:center;font-size:14px;color:var(--ink)}
@@ -249,19 +244,6 @@ label input,label textarea,label select{border-radius:14px;padding:12px 14px;fon
 .weekday-track{height:9px;border-radius:99px;background:#e8dece;overflow:hidden}
 .weekday-track i{display:block;height:100%;border-radius:99px;background:var(--rust);min-width:0}
 .weekday-card{grid-column:1/-1}
-@media(max-width:560px){.favorite-book-image{padding:4% 8%}.favorite-book-tools>button{opacity:.4}.weekday-row{grid-template-columns:48px minmax(30px,1fr) 52px 24px;gap:6px;font-size:11px}}
+@media(max-width:560px){.favorite-picker{left:10px;bottom:10px;padding:7px 9px}.favorite-picker select{max-width:160px}.weekday-row{grid-template-columns:48px minmax(30px,1fr) 52px 24px;gap:6px;font-size:11px}}
 
 .reading-date-chip .chip-range{font-size:10px;color:var(--rust);white-space:nowrap}
-
-
-/* v9 — account gate, cloud sync, discreet favorite-book picker */
-.auth-locked .topbar,.auth-locked main,.auth-locked footer{display:none!important}
-.auth-gate{min-height:100svh;display:grid;place-items:center;padding:28px 18px;background:radial-gradient(ellipse at 20% 10%,#f8f1e6 0%,#eee6d8 55%,#e7ddcd 100%);position:relative;z-index:5}
-.auth-card{width:min(100%,440px);padding:clamp(28px,6vw,48px);background:#f8f3e9;border:1px solid #d9cdbb;border-radius:26px;box-shadow:0 22px 70px #51433218}
-.auth-card h1{font-family:inherit;font-size:clamp(36px,8vw,52px);font-weight:500;line-height:1.12;letter-spacing:-.045em;margin:12px 0 10px;color:var(--ink,#30271f)}
-.auth-card h1 span{color:var(--rust,#a35f48)}.auth-intro{font-size:14px;color:var(--muted,#81776b);line-height:1.8;margin:0 0 28px}
-.auth-tabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #d9cdbb;margin-bottom:22px}.auth-tabs button{border:0;background:none;padding:12px 8px;color:#9b8c79;font:inherit;cursor:pointer;border-bottom:2px solid transparent}.auth-tabs button.active{color:var(--ink,#30271f);border-color:var(--rust,#a35f48);font-weight:700}
-#authForm{display:grid;gap:9px}#authForm label{font-size:13px;color:#655747;margin-top:5px}#authForm input{width:100%;border:1px solid #d9cdbb;border-radius:12px;background:#fffaf2;padding:13px 14px;font:inherit;font-size:14px;color:#30271f;outline:none}#authForm input:focus{border-color:#a35f48;box-shadow:0 0 0 3px #a35f4815}
-.auth-hint,.auth-footnote{font-size:11px;line-height:1.7;color:#9b8c79;margin:3px 0 8px}.auth-footnote{margin:18px 0 0}.auth-error,.auth-config-notice{font-size:12px;line-height:1.7;color:#a04436;background:#f5e6df;border-radius:10px;padding:10px 12px;margin:0}.auth-submit{border:0;border-radius:999px;background:#30271f;color:#fffaf2;padding:14px 18px;font:inherit;font-size:14px;cursor:pointer;margin-top:5px}.auth-submit:disabled{opacity:.55;cursor:wait}
-.account-control{display:flex;align-items:center;gap:10px;margin-left:auto}.account-control span{font-size:12px;color:var(--muted)}.account-logout{border:0;background:none;color:var(--muted);font:inherit;font-size:11px;cursor:pointer;padding:5px}.account-logout:hover{color:var(--rust)}
-@media(max-width:760px){.account-control{gap:4px}.account-control span{max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}

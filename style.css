@@ -214,3 +214,10 @@ label input,label textarea,label select{border-radius:14px;padding:12px 14px;fon
 .mcol b{font-size:11px;font-weight:400;color:var(--muted)}.mcol small{font-size:10px;color:#b3a591;height:12px}
 @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats-panels{grid-template-columns:1fr}}
 @media(max-width:560px){.kpi strong{font-size:24px}.stats-card{padding:20px 16px}.month-chart{gap:3px}.mcol b{font-size:10px}.mcol small{display:none}.genre-flex{justify-content:center}}
+
+/* v7 */
+.calendar-day{display:flex;flex-direction:column}
+.cal-pages{display:inline-block;align-self:flex-start;margin-top:5px;padding:1px 8px;border-radius:999px;background:#e5d3bd;color:#7a4a33;font-size:11px;line-height:1.5}
+.day-read-label{font-size:11px;color:var(--muted);margin-top:9px}.day-read-label+.day-pages{margin-top:4px}
+.day-cum{margin-top:6px;font-size:11px;color:var(--rust)}
+@media(max-width:760px){.cal-pages{font-size:9px;padding:0 5px}}

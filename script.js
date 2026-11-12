@@ -4,7 +4,7 @@ const starterBooks = [
   {id:"b3",title:"이방인",author:"알베르 카뮈",genre:"인문",date:"2026-09-14",readingDates:["2026-09-14"],rating:4,publisher:"",pages:160,currentPage:160,status:"finished",review:"당연하다고 여겼던 감정과 사회의 기준을 낯설게 바라보게 했다.",quotes:[{text:"오늘 엄마가 죽었다. 어쩌면 어제였는지도 모른다.",source:"첫 문장"}],cover:""}
 ];
 const $=id=>document.getElementById(id), safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-let books=JSON.parse(localStorage.getItem("readingRoomBooks")||"null")||starterBooks;
+let books=JSON.parse(localStorage.getItem("readingRoomBooks")||"null")||[];
 books=books.map(b=>{
  const dates=(Array.isArray(b.readingDates)?b.readingDates:(b.date?[b.date]:[])).slice().sort();
  const oldDaily=(b.dailyPages&&typeof b.dailyPages==="object")?b.dailyPages:{};
@@ -17,10 +17,10 @@ let genres=JSON.parse(localStorage.getItem("readingRoomGenres")||"null")||["소�
 let genreColors=JSON.parse(localStorage.getItem("readingRoomGenreColors")||"null")||{"소설":"#78836b","에세이":"#a77b58","인문":"#8b4f4d","시":"#8c8aa2","역사":"#536b7a","사회":"#9a8758","과학":"#5e817e","철학":"#685b72","예술":"#b06d55","자기계발":"#718b75","경제·경영":"#526b59","여행":"#b27e50","만화":"#9a6b82","기타":"#81776b"};
 let editingDailyEnds={};
 let selectedRating=5,activeGenre="전체",activeStatus="all",calendarCursor=new Date(new Date().getFullYear(),new Date().getMonth(),1),selectedCalendarDate="",editingReadingDates=[],selectedQuoteBook="",favoriteBookId=localStorage.getItem("readingRoomFavoriteBookId")||"";
-const save=()=>localStorage.setItem("readingRoomBooks",JSON.stringify(books));
-const saveGenres=()=>localStorage.setItem("readingRoomGenres",JSON.stringify(genres));
-const saveGenreColors=()=>localStorage.setItem("readingRoomGenreColors",JSON.stringify(genreColors));
-const saveWishlist=()=>localStorage.setItem("readingRoomWishlist",JSON.stringify(wishlist));
+const save=()=>{localStorage.setItem("readingRoomBooks",JSON.stringify(books));window.ReadingRoomCloud?.scheduleSync()};
+const saveGenres=()=>{localStorage.setItem("readingRoomGenres",JSON.stringify(genres));window.ReadingRoomCloud?.scheduleSync()};
+const saveGenreColors=()=>{localStorage.setItem("readingRoomGenreColors",JSON.stringify(genreColors));window.ReadingRoomCloud?.scheduleSync()};
+const saveWishlist=()=>{localStorage.setItem("readingRoomWishlist",JSON.stringify(wishlist));window.ReadingRoomCloud?.scheduleSync()};
 const readingDatesOf=b=>Array.isArray(b.readingDates)?b.readingDates:(b.date?[b.date]:[]);
 const lastDateOf=b=>readingDatesOf(b).slice().sort().slice(-1)[0]||"";
 const isDone=b=>b.status==="finished"||(Number(b.pages)>0&&Number(b.currentPage)>=Number(b.pages));
@@ -177,7 +177,7 @@ $("readingDateList").addEventListener("click",e=>{const b=e.target.closest("[dat
 $("starPicker").addEventListener("click",e=>{const b=e.target.closest("[data-star]");if(b){selectedRating=Number(b.dataset.star);renderStars()}});
 $("shelfTabs").addEventListener("click",e=>{const b=e.target.closest("[data-status]");if(!b)return;activeStatus=b.dataset.status;document.querySelectorAll("#shelfTabs button").forEach(x=>x.classList.toggle("active",x===b));render()});
 $("shelfSort").addEventListener("change",render);
-$("favoriteBookSelect").addEventListener("change",e=>{favoriteBookId=e.target.value;localStorage.setItem("readingRoomFavoriteBookId",favoriteBookId);renderFavoriteBook()});
+$("favoriteBookSelect").addEventListener("change",e=>{favoriteBookId=e.target.value;localStorage.setItem("readingRoomFavoriteBookId",favoriteBookId);window.ReadingRoomCloud?.scheduleSync();renderFavoriteBook()});
 $("bookGrid").addEventListener("click",e=>{const v=e.target.closest("[data-view]");if(v)openView(books.find(b=>b.id===v.dataset.view))});
 $("closeView").onclick=()=>$("viewDialog").close();
 $("viewDialog").addEventListener("click",e=>{if(e.target===$("viewDialog"))$("viewDialog").close();const ed=e.target.closest("[data-edit-from-view]");if(ed){const b=books.find(x=>x.id===ed.dataset.editFromView);$("viewDialog").close();openDialog(b)}});
@@ -240,3 +240,20 @@ function renderStats(){
 }
 $("prevStatsYear").onclick=()=>{statsYear--;renderStats()};$("nextStatsYear").onclick=()=>{statsYear++;renderStats()};
 updateWishSearch();render();
+window.ReadingRoomApp={
+ getData(){return {books,wishlist,genres,genreColors,favoriteBookId}},
+ setData(data){
+  books=Array.isArray(data.books)?data.books:[];
+  wishlist=Array.isArray(data.wishlist)?data.wishlist:[];
+  genres=Array.isArray(data.genres)&&data.genres.length?data.genres:["소설","에세이","인문","시","역사","사회","과학","철학","예술","자기계발","경제·경영","여행","만화","기타"];
+  genreColors=data.genreColors&&typeof data.genreColors==="object"?data.genreColors:{};
+  favoriteBookId=typeof data.favoriteBookId==="string"?data.favoriteBookId:"";
+  localStorage.setItem("readingRoomBooks",JSON.stringify(books));
+  localStorage.setItem("readingRoomWishlist",JSON.stringify(wishlist));
+  localStorage.setItem("readingRoomGenres",JSON.stringify(genres));
+  localStorage.setItem("readingRoomGenreColors",JSON.stringify(genreColors));
+  localStorage.setItem("readingRoomFavoriteBookId",favoriteBookId);
+  render();
+ },
+ hasLocalData(){return ["readingRoomBooks","readingRoomWishlist"].some(k=>{try{return JSON.parse(localStorage.getItem(k)||"null")?.length>0}catch(e){return false}})}
+};

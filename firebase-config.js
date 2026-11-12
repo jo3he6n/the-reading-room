@@ -1,10 +1,9 @@
-// Firebase Console > Project settings > Your apps > SDK setup and configuration
-// Paste the web app configuration from your own Firebase project below.
-export const firebaseConfig = {
-  apiKey: "PASTE_YOUR_FIREBASE_API_KEY",
-  authDomain: "PASTE_YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "PASTE_YOUR_PROJECT_ID",
-  storageBucket: "PASTE_YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "PASTE_YOUR_MESSAGING_SENDER_ID",
-  appId: "PASTE_YOUR_FIREBASE_APP_ID"
+/* Firebase 콘솔에서 발급받은 웹 앱 설정값을 아래에 입력하세요. */
+window.READING_ROOM_FIREBASE_CONFIG = {
+  apiKey: "여기에_apiKey",
+  authDomain: "여기에_projectId.firebaseapp.com",
+  projectId: "여기에_projectId",
+  storageBucket: "여기에_projectId.appspot.com",
+  messagingSenderId: "여기에_messagingSenderId",
+  appId: "여기에_appId"
 };

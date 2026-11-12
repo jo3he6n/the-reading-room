@@ -217,7 +217,33 @@ label input,label textarea,label select{border-radius:14px;padding:12px 14px;fon
 
 /* v7 */
 .calendar-day{display:flex;flex-direction:column}
-.cal-pages{display:inline-block;align-self:flex-start;margin-top:5px;padding:1px 8px;border-radius:999px;background:#e5d3bd;color:#7a4a33;font-size:11px;line-height:1.5}
+
 .day-read-label{font-size:11px;color:var(--muted);margin-top:9px}.day-read-label+.day-pages{margin-top:4px}
 .day-cum{margin-top:6px;font-size:11px;color:var(--rust)}
-@media(max-width:760px){.cal-pages{font-size:9px;padding:0 5px}}
+@media(max-width:760px){}
+
+
+/* v8 — 누적 마지막 페이지 입력, 요일 통계, 최애 책 */
+.favorite-book-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.favorite-book-fallback{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;padding:38px;background:#8c6b50;color:#f7ecda;text-align:center;font-size:clamp(24px,3vw,40px);line-height:1.5}
+.favorite-picker{position:absolute;left:16px;bottom:16px;z-index:3;margin:0;padding:9px 12px;background:#eee7dbed;color:#6a5745;font:9px var(--sans);letter-spacing:.12em;box-shadow:0 2px 8px #24170f20}
+.favorite-picker select{display:block;max-width:210px;margin-top:6px;padding:7px 9px;border:1px solid #cfc2ae;background:#fffaf2;color:var(--ink);font:12px var(--sans);letter-spacing:0}
+.image-note{z-index:2}
+.day-pages-end{display:flex;align-items:center;gap:7px;margin-top:5px}
+.day-end-input{width:76px;border:1px solid var(--line);border-radius:999px;background:#fffaf2;padding:7px 9px;text-align:center;font-size:14px;color:var(--ink)}
+.day-pages-end span{font-size:11px;color:var(--muted)}
+.day-range{margin-top:7px;font-size:12px;color:var(--rust);font-weight:700}
+.day-cum{font-size:11px;color:var(--muted)}
+.chip-end-label{display:inline-flex;align-items:center;gap:4px;margin:0;color:var(--muted);font:10px var(--sans)}
+.reading-date-chip .chip-end-label input{margin:0}
+.weekday-chart{display:grid;gap:13px}
+.weekday-row{display:grid;grid-template-columns:58px minmax(40px,1fr) 58px 30px;gap:9px;align-items:center;font-size:12px}
+.weekday-row>span{color:var(--muted)}
+.weekday-row strong{text-align:right;font-size:12px;font-weight:500;color:var(--ink)}
+.weekday-row small{text-align:right;color:var(--muted);font-size:10px}
+.weekday-track{height:9px;border-radius:99px;background:#e8dece;overflow:hidden}
+.weekday-track i{display:block;height:100%;border-radius:99px;background:var(--rust);min-width:0}
+.weekday-card{grid-column:1/-1}
+@media(max-width:560px){.favorite-picker{left:10px;bottom:10px;padding:7px 9px}.favorite-picker select{max-width:160px}.weekday-row{grid-template-columns:48px minmax(30px,1fr) 52px 24px;gap:6px;font-size:11px}}
+
+.reading-date-chip .chip-range{font-size:10px;color:var(--rust);white-space:nowrap}

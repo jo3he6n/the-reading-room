@@ -1,3 +1,4 @@
+/* Firebase 웹 앱 설정 */
 window.READING_ROOM_FIREBASE_CONFIG = {
   apiKey: "AIzaSyCY0Q1unO-8l6u3YC67xA3qyWCyfBOA-Rg",
   authDomain: "the-reading-room-e04f0.firebaseapp.com",

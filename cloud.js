@@ -65,6 +65,7 @@
     }, e => { console.error(e); setStatus('동기화 오류 · 보안 규칙 확인'); });
   };
   const openDialog = () => { setError(''); if (dialog && !dialog.open) dialog.showModal(); };
+  const showLoginGate = () => { if (dialog && !dialog.open) dialog.showModal(); const close = $('accountClose'); if (close) close.style.display = 'none'; };
   const setMode = next => {
     mode = next;
     $('accountTitle').innerHTML = next === 'signup' ? '새 서재를 만들어요<span>.</span>' : '나만의 서재에 로그인<span>.</span>';
@@ -82,9 +83,10 @@
     setStatus('Firebase 연결 설정 필요');
     accountButton.textContent = '계정 설정';
     accountButton.addEventListener('click', () => { openDialog(); setError('아직 Firebase 연결 설정이 비어 있어요. ZIP 안의 README를 따라 Firebase 프로젝트를 만든 뒤 firebase-config.js에 설정값을 넣어 주세요.'); });
-    $('accountClose').onclick = () => dialog.close();
+    $('accountClose').onclick = () => { if (currentUser) dialog.close(); };
     $('accountSwitch').onclick = () => setMode(mode === 'login' ? 'signup' : 'login');
     $('accountForm').addEventListener('submit', e => { e.preventDefault(); setError('Firebase 설정을 먼저 완료해 주세요.'); });
+    showLoginGate();
     return;
   }
   try {
@@ -92,7 +94,7 @@
     auth = firebase.auth(); db = firebase.firestore();
   } catch (e) { console.error(e); setStatus('Firebase 초기화 오류'); }
   accountButton.addEventListener('click', () => currentUser ? signOut() : openDialog());
-  $('accountClose').onclick = () => dialog.close();
+  $('accountClose').onclick = () => { if (currentUser) dialog.close(); };
   $('accountSwitch').onclick = () => setMode(mode === 'login' ? 'signup' : 'login');
   $('accountForm').addEventListener('submit', async e => {
     e.preventDefault(); setError('');
@@ -102,6 +104,7 @@
     const submit = $('accountSubmit'); submit.disabled = true; submit.textContent = '연결 중…';
     try {
       const email = usernameEmail(username);
+      await auth.setPersistence($('rememberLogin')?.checked ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION);
       if (mode === 'signup') await auth.createUserWithEmailAndPassword(email, password);
       else await auth.signInWithEmailAndPassword(email, password);
       $('accountPassword').value = ''; dialog.close();
@@ -112,12 +115,15 @@
     currentUser = user;
     if (unsubscribe) { unsubscribe(); unsubscribe = null; }
     if (user) {
+      if (dialog?.open) dialog.close();
+      if ($('accountClose')) $('accountClose').style.display = 'none';
       hadAuthenticatedSession = true;
       accountButton.textContent = '로그아웃';
       setStatus('클라우드 서재 연결 중…');
       subscribe();
     } else {
       accountButton.textContent = '로그인';
+      showLoginGate();
       setStatus('기기에 저장 중 · 로그인하면 동기화');
       if (hadAuthenticatedSession) {
         applyingRemote = true;

@@ -224,10 +224,10 @@ label input,label textarea,label select{border-radius:14px;padding:12px 14px;fon
 
 
 /* v8 — 누적 마지막 페이지 입력, 요일 통계, 최애 책 */
-.favorite-book-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.favorite-book-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;padding:18px 24px;z-index:0;background:linear-gradient(135deg,#e9dfd1,#d8c9b6)}
 .favorite-book-fallback{position:absolute;inset:0;z-index:0;display:flex;align-items:center;justify-content:center;padding:38px;background:#8c6b50;color:#f7ecda;text-align:center;font-size:clamp(24px,3vw,40px);line-height:1.5}
-.favorite-picker{position:absolute;left:16px;bottom:16px;z-index:3;margin:0;padding:9px 12px;background:#eee7dbed;color:#6a5745;font:9px var(--sans);letter-spacing:.12em;box-shadow:0 2px 8px #24170f20}
-.favorite-picker select{display:block;max-width:210px;margin-top:6px;padding:7px 9px;border:1px solid #cfc2ae;background:#fffaf2;color:var(--ink);font:12px var(--sans);letter-spacing:0}
+.favorite-picker{position:absolute;right:13px;bottom:13px;z-index:3;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#eee7dbcc;color:#6a5745;box-shadow:0 2px 8px #24170f20;cursor:pointer;opacity:.58;transition:opacity .2s,transform .2s}.favorite-picker:hover,.favorite-picker:focus-within{opacity:1;transform:scale(1.06)}.favorite-picker span{font:23px/1 var(--serif);pointer-events:none}.favorite-picker select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+
 .image-note{z-index:2}
 .day-pages-end{display:flex;align-items:center;gap:7px;margin-top:5px}
 .day-end-input{width:76px;border:1px solid var(--line);border-radius:999px;background:#fffaf2;padding:7px 9px;text-align:center;font-size:14px;color:var(--ink)}
@@ -244,10 +244,12 @@ label input,label textarea,label select{border-radius:14px;padding:12px 14px;fon
 .weekday-track{height:9px;border-radius:99px;background:#e8dece;overflow:hidden}
 .weekday-track i{display:block;height:100%;border-radius:99px;background:var(--rust);min-width:0}
 .weekday-card{grid-column:1/-1}
-@media(max-width:560px){.favorite-picker{left:10px;bottom:10px;padding:7px 9px}.favorite-picker select{max-width:160px}.weekday-row{grid-template-columns:48px minmax(30px,1fr) 52px 24px;gap:6px;font-size:11px}}
+@media(max-width:560px){.favorite-picker{right:10px;bottom:10px;width:32px;height:32px}.weekday-row{grid-template-columns:48px minmax(30px,1fr) 52px 24px;gap:6px;font-size:11px}}
 
 .reading-date-chip .chip-range{font-size:10px;color:var(--rust);white-space:nowrap}
 
 
 /* v9 account and cloud sync */
 .header-actions{display:flex;align-items:center;gap:10px}.account-button{border:1px solid var(--line);background:transparent;color:var(--ink);padding:10px 16px;border-radius:999px;font:inherit;font-size:12px;cursor:pointer}.account-button:hover{background:#eee5d8}.account-dialog{width:min(92vw,430px);border:1px solid var(--line);border-radius:18px;padding:0;background:var(--paper);color:var(--ink);box-shadow:0 24px 80px #24170f30}.account-dialog::backdrop{background:#211a14a8;backdrop-filter:blur(4px)}.account-form{padding:28px}.account-form h2{font-family:var(--serif);font-size:28px;font-weight:500;margin:8px 0}.account-description,.account-small{font-size:12px;line-height:1.7;color:var(--muted)}.account-form label{display:block;margin-top:18px;font-size:12px;color:var(--muted)}.account-form label input{display:block;width:100%;margin-top:7px;padding:13px 14px;border:1px solid var(--line);border-radius:8px;background:#fffaf2;color:var(--ink);font:inherit;font-size:14px}.account-error{min-height:18px;color:#a34d42;font-size:12px}.account-switch{display:block;width:100%;border:0;background:none;color:var(--rust);padding:14px 0 4px;font:inherit;font-size:12px;cursor:pointer}.account-small{margin-top:14px;font-size:10px}.sync-pill{font-size:11px;color:var(--muted)}@media(max-width:760px){.header-actions{gap:6px}.account-button{padding:9px 11px;font-size:11px}.account-form{padding:22px}}
+
+.remember-login{display:flex!important;align-items:center;gap:9px;font-size:12px!important;color:var(--muted);margin:2px 0 8px!important}.remember-login input{width:15px;height:15px;accent-color:var(--rust)}.account-dialog .close-button{display:none}

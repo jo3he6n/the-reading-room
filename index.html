@@ -8,7 +8,7 @@
   <title>The Reading Room — A room of my own</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Gowun+Batang:wght@400;700&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,7 +16,7 @@
   <header class="topbar">
     <a class="wordmark" href="#home">THE READING ROOM<span>PERSONAL LIBRARY & JOURNAL</span></a>
     <nav><a href="#shelf">MY BOOKS</a><a href="#calendar">CALENDAR</a><a href="#quotes">QUOTES</a><a href="#wishlist">WISH LIST</a></nav>
-    <button class="add-button" id="openAddTop">＋ 책 추가</button>
+    <button class="add-button" id="openAddTop">+ 책 추가</button>
   </header>
 
   <main id="home">
@@ -65,7 +65,7 @@
     <section class="section shelf-section" id="shelf">
       <div class="section-heading">
         <div><p class="eyebrow">A COLLECTION OF STORIES</p><h2>Books on my shelf<span>.</span></h2></div>
-        <button class="outline-button" id="openAdd">＋ 새 책 기록하기</button>
+        <button class="outline-button" id="openAdd">+ 새 책 기록하기</button>
       </div>
       <div class="shelf-controls"><div class="shelf-tabs" id="shelfTabs"><button class="active" data-status="all">전체</button><button data-status="reading">읽고 있는 책</button><button data-status="finished">완독</button><button data-status="paused">중단한 책</button></div><div class="shelf-tools"><label>정렬 <select id="shelfSort"><option value="default">기본</option><option value="rating-desc">평점 높은 순</option><option value="rating-asc">평점 낮은 순</option><option value="genre">장르별</option><option value="date-desc">최근 읽은 순</option><option value="date-asc">오래된 순</option></select></label><button class="text-button" id="manageGenres">장르·색상 관리</button></div></div>
       <div class="bookshelf-wrap"><div class="bookshelf" id="bookGrid"></div></div>
@@ -75,10 +75,11 @@
     <section class="section quotes-section" id="quotes">
       <div class="section-heading">
         <div><p class="eyebrow">WORDS TO KEEP</p><h2>Collected quotes<span>.</span></h2></div>
-        <p class="section-note">문장별 목록이 아니라, 책 한 권씩 펼쳐보는<br>나만의 문장 보관 서가.</p>
+        <p class="section-note">책을 톡 누르면 모아둔 문장이 펼쳐져요.<br>마음에 남는 부분은 형광펜으로 칠해보세요.</p>
       </div>
       <div class="quote-book-grid" id="quoteBookGrid"></div>
-      <div class="quote-detail" id="quoteDetail"><p class="day-empty">책 표지를 누르면 그 책에서 모아둔 문장들을 볼 수 있어요.</p></div>
+      <p class="quote-hint" id="quoteHint">책 표지를 누르면 그 책에서 모아둔 문장들이 펼쳐져요.</p>
+      <div class="quote-detail" id="quoteDetail" hidden></div>
     </section>
 
     <section class="section wishlist-section" id="wishlist">
@@ -95,7 +96,7 @@
       <div class="wish-add-row">
         <input id="wishTitle" placeholder="책 제목">
         <input id="wishAuthor" placeholder="저자 (선택)"><select id="wishGenre"><option value="기타">장르 선택</option></select>
-        <button id="addWish">＋ 위시리스트에 담기</button>
+        <button id="addWish">+ 위시리스트에 담기</button>
       </div>
       <div class="wish-list" id="wishList"></div>
     </section>
@@ -118,7 +119,7 @@
       <div class="form-row">
         <label>장르<select id="genre"></select></label>
         <label>독서 기록 날짜 <small>(책을 읽은 날을 모두 추가하세요)</small>
-          <div class="reading-date-entry"><input id="readingDateInput" type="date"><button type="button" class="add-quote-button" id="addReadingDate">＋ 날짜 추가</button></div>
+          <div class="reading-date-entry"><input id="readingDateInput" type="date"><button type="button" class="add-quote-button" id="addReadingDate">+ 날짜 추가</button></div>
           <div id="readingDateList" class="reading-date-list"></div>
         </label>
       </div>
@@ -132,9 +133,13 @@
       <label>독서평<textarea id="review" rows="3" placeholder="이 책을 읽고 어떤 생각이 들었나요?"></textarea></label>
       <div class="quote-form-heading"><strong>이 책에서 간직할 문장</strong><span>문장은 책별로 여러 개 저장할 수 있어요.</span></div>
       <div id="quoteInputs"></div>
-      <button type="button" class="add-quote-button" id="addQuote">＋ 문장 추가</button>
+      <button type="button" class="add-quote-button" id="addQuote">+ 문장 추가</button>
       <button class="submit-button" type="submit">서재에 책장 꽂기</button>
+      <button type="button" class="delete-link" id="deleteBook" hidden>이 책 기록 삭제</button>
     </form>
+  </dialog>
+  <dialog id="viewDialog">
+    <div class="view-wrap"><button type="button" class="close-button view-close" id="closeView" aria-label="닫기">×</button><div id="viewBody"></div></div>
   </dialog>
   <dialog id="genreDialog">
     <div class="dialog-top"><p class="eyebrow">YOUR OWN CATEGORIES</p><button type="button" class="close-button" id="closeGenreDialog">×</button></div>

@@ -1,8 +1,14 @@
-# The Reading Room v4
+# The Reading Room v5
 
-기존 GitHub 저장소의 `index.html`, `style.css`, `script.js`를 이 파일들로 교체하고 Commit changes를 누르세요. GitHub Pages는 `main` 브랜치의 `/(root)`에서 배포하면 됩니다.
+기존 GitHub 저장소의 `index.html`, `style.css`, `script.js`를 (그리고 `KcalliAutumnGothic.ttf`를 함께 업로드하고) 이 파일들로 교체하고 Commit changes를 누르세요. GitHub Pages는 `main` 브랜치의 `/(root)`에서 배포하면 됩니다.
 
-## 이번 버전
+## v5 변경점
+- **KcalliAutumnGothic.ttf** 폰트 적용 + 전체적으로 둥글둥글한 스타일 (이 폰트 파일도 저장소 루트에 같이 올려야 해요!)
+- Collected quotes: 기본은 문장이 접혀 있고, 책을 누르면 문장이 차르르 펼쳐짐 (한 번 더 누르면 접힘)
+- 문장 형광펜: 문장을 드래그하면 노랑/분홍/민트 도구가 뜨고, 칠한 부분을 누른 뒤 "지우기"로 삭제
+- 서가의 책을 누르면 표지·제목·평점·독서평만 보이는 깔끔한 보기 창. 수정은 창 맨 아래 작은 "정보 수정", 삭제는 수정 창 맨 아래
+
+## 이전 버전(v4)
 - 도서관형 가로 책장, 책등 제목만 표시
 - 페이지 수에 비례하는 책등 두께
 - 장르별 책등 색상 직접 지정 및 장르 추가/삭제

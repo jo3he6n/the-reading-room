@@ -1,9 +1,9 @@
-/* Firebase 콘솔에서 발급받은 웹 앱 설정값을 아래에 입력하세요. */
+
 window.READING_ROOM_FIREBASE_CONFIG = {
-  apiKey: "apiKey",
-  authDomain: "authDomain",
-  projectId: "projectId",
-  storageBucket: "storageBucket",
-  messagingSenderId: "messagingSenderId",
-  appId: "appId"
+  apiKey: "AIzaSyCY0Q1unO-8l6u3YC67xA3qyWCyfBOA-Rg",
+  authDomain: "the-reading-room-e04f0.firebaseapp.com",
+  projectId: "the-reading-room-e04f0",
+  storageBucket: "the-reading-room-e04f0.firebasestorage.app",
+  messagingSenderId: "800575554853",
+  appId: "1:800575554853:web:d929adcd682d9c805f86cc"
 };

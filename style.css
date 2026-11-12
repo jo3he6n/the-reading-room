@@ -138,3 +138,79 @@ label input,label textarea,label select{border-radius:14px;padding:12px 14px;fon
  .view-wrap{padding:30px 22px 18px}.view-book{grid-template-columns:1fr;justify-items:center;text-align:center;gap:18px}.view-cover{width:140px}.view-rating{justify-content:center}
  .spine-title{font-size:10.5px}
 }
+
+/* ================= V6 — 완독 표시 · 일별 쪽수 · 문장 메모 · 연간 통계 ================= */
+/* 완독 배지 */
+.cal-cover{position:relative;display:block;line-height:0;border-radius:5px;overflow:hidden}
+.cal-cover>img,.cal-cover>span{display:block}
+.finish-badge{position:absolute;left:0;right:0;bottom:0;background:#1d1814;color:#fff;text-align:center;font-style:normal;font-weight:700;line-height:1.25;pointer-events:none}
+.cal-cover .finish-badge{font-size:7px;padding:2px 0}
+.day-book-cover{position:relative;border-radius:8px;overflow:hidden;box-shadow:4px 5px 10px #30271f25;line-height:0}
+.day-book-cover img,.day-book-cover .day-cover-fallback{box-shadow:none;border-radius:0;display:flex}
+.day-book-cover img{display:block}
+.day-book-cover .finish-badge{font-size:16px;padding:9px 0;letter-spacing:.04em}
+@media(max-width:760px){.cal-cover .finish-badge{font-size:5.5px;padding:1px 0}.day-book-cover .finish-badge{font-size:13px;padding:7px 0}}
+
+/* 날짜 상세: 쪽수 조절 */
+.day-books{display:block}.day-books-row{display:flex;gap:20px;flex-wrap:wrap}
+.day-book{width:132px}
+.day-total{font-size:15px;color:var(--rust);margin-left:6px}
+.day-pages{display:flex;align-items:center;gap:5px;margin-top:9px;font-size:13px;color:var(--muted)}
+.day-pages button{width:26px;height:26px;padding:0;border:1px solid var(--line);background:var(--soft);border-radius:50%;color:var(--ink);cursor:pointer;line-height:1;font-size:15px;transition:transform .15s,background .2s}
+.day-pages button:hover{background:var(--ink);color:var(--paper);transform:scale(1.1)}
+.day-pages-input{width:46px;text-align:center;border:1px solid var(--line);border-radius:999px;background:#fffaf2;padding:5px 2px;font-size:14px;color:var(--ink);-moz-appearance:textfield}
+.day-pages-input::-webkit-outer-spin-button,.day-pages-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.day-remove{display:block;margin-top:7px;border:0;background:none;padding:0;color:#bcae9b;font-size:11px;cursor:pointer}.day-remove:hover{color:#b0493a}
+.day-add{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:22px;padding-top:18px;border-top:1px dashed #c9bba5}
+.day-add select{border:1px solid var(--line);border-radius:999px;background:#f8f2e8;padding:9px 14px;font-size:13px;color:var(--ink);max-width:100%}
+.day-add button{border:0;border-radius:999px;background:var(--ink);color:var(--paper);padding:10px 16px;font-size:13px;cursor:pointer}.day-add button:hover{background:var(--rust)}
+
+/* 책 기록 폼: 날짜별 쪽수 */
+.field{display:block;margin:16px 0;font-size:14px;color:#5e5042}.field-title{display:block}
+.reading-date-entry{display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}
+.reading-date-entry input{display:block;flex:1 1 140px;min-width:0;margin-top:0;border:1px solid var(--line);background:#f5efe5;padding:12px 14px;border-radius:14px;color:var(--ink);font-size:14px;outline:none}
+.reading-date-entry input:focus{border-color:var(--rust)}
+.reading-date-chip{gap:8px;padding:5px 8px 5px 12px;font-size:13px}
+.reading-date-chip .chip-pages{display:inline-block;width:62px;margin:0;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:#fffaf2;font-size:12px;text-align:center;color:var(--ink);outline:none}
+.reading-date-chip .chip-pages:focus{border-color:var(--rust)}
+
+/* 문장 메모 — 평소엔 거의 안 보이게 */
+.q-note{margin-top:10px;min-height:22px}
+.q-note-add{border:0;background:none;padding:2px 4px;font-size:12px;color:var(--muted);opacity:0;cursor:pointer;transition:opacity .2s}
+.saved-quotes blockquote:hover .q-note-add,.q-note-add:focus-visible{opacity:.65}
+@media(hover:none){.q-note-add{opacity:.3}}
+.q-note-text{margin:0;padding:2px 0 2px 12px;border-left:2px dashed #cdbba4;font-size:14px;line-height:1.8;color:#8b7a67;white-space:pre-wrap;cursor:text}
+.q-note-text:hover{color:var(--ink)}
+.q-note-input{display:block;width:100%;border:1px dashed #cdbba4;border-radius:12px;background:#fffaf2;padding:10px 12px;font-size:14px;line-height:1.7;color:var(--ink);resize:vertical;outline:none}
+.q-note-input:focus{border-color:var(--rust)}
+.q-note-actions{display:flex;gap:6px;margin-top:6px;justify-content:flex-end}
+.q-note-actions button{border:0;border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer;background:none;color:var(--muted)}
+.q-note-actions button[data-note-save]{background:var(--ink);color:var(--paper)}
+
+/* 연간 통계 */
+.stats-section{background:#eee7db}
+.stats-year-nav{display:flex;align-items:center;gap:12px}.stats-year-nav strong{font-size:22px;min-width:76px;text-align:center}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.kpi{background:#f4ede1;border:1px solid var(--line);border-radius:var(--r-md);padding:18px 20px}
+.kpi span{display:block;font-size:12px;color:var(--muted);margin-bottom:8px}
+.kpi strong{font-size:30px;font-weight:700;line-height:1.1}.kpi strong small{font-size:13px;font-weight:400;color:var(--muted);margin-left:5px}
+.stats-note{font-size:13px;color:var(--muted);margin:14px 4px 0}
+.stats-panels{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px}
+.stats-card{background:#f4ede1;border:1px solid var(--line);border-radius:var(--r-lg);padding:26px}
+.stats-card h3{font-size:19px;font-weight:700;margin:0 0 16px}
+.genre-headline{margin:0 0 18px;font-size:15px;color:#6f6152}.genre-headline b{color:var(--rust);font-size:17px}
+.genre-flex{display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.donut{width:150px;height:150px;border-radius:50%;position:relative;flex:none}
+.donut:after{content:"";position:absolute;inset:32px;background:#f4ede1;border-radius:50%}
+.donut span{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;color:var(--muted)}
+.donut span strong{font-size:28px;color:var(--ink);line-height:1.1}
+.genre-legend{list-style:none;margin:0;padding:0;flex:1;min-width:150px;display:grid;gap:9px}
+.genre-legend li{display:flex;align-items:center;gap:9px;font-size:14px}.genre-legend i{width:12px;height:12px;border-radius:50%;flex:none}.genre-legend span{flex:1}.genre-legend em{font-style:normal;font-size:12px;color:var(--muted)}
+.month-chart{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:6px;align-items:end}
+.mcol{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.mval{font-size:11px;color:var(--rust);height:14px;line-height:14px}
+.mbar{height:140px;width:100%;display:flex;align-items:flex-end}.mbar i{display:block;width:100%;background:var(--rust);border-radius:8px 8px 3px 3px;opacity:.85;transition:height .5s cubic-bezier(.34,1.56,.64,1)}
+.mcol:hover .mbar i{opacity:1}
+.mcol b{font-size:11px;font-weight:400;color:var(--muted)}.mcol small{font-size:10px;color:#b3a591;height:12px}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats-panels{grid-template-columns:1fr}}
+@media(max-width:560px){.kpi strong{font-size:24px}.stats-card{padding:20px 16px}.month-chart{gap:3px}.mcol b{font-size:10px}.mcol small{display:none}.genre-flex{justify-content:center}}

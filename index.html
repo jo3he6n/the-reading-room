@@ -15,7 +15,7 @@
   <div class="paper-grain"></div>
   <header class="topbar">
     <a class="wordmark" href="#home">THE READING ROOM<span>PERSONAL LIBRARY & JOURNAL</span></a>
-    <nav><a href="#shelf">MY BOOKS</a><a href="#calendar">CALENDAR</a><a href="#quotes">QUOTES</a><a href="#wishlist">WISH LIST</a></nav>
+    <nav><a href="#shelf">MY BOOKS</a><a href="#calendar">CALENDAR</a><a href="#quotes">QUOTES</a><a href="#wishlist">WISH LIST</a><a href="#stats">STATS</a></nav>
     <button class="add-button" id="openAddTop">+ 책 추가</button>
   </header>
 
@@ -101,6 +101,19 @@
       <div class="wish-list" id="wishList"></div>
     </section>
 
+    <section class="section stats-section" id="stats">
+      <div class="section-heading">
+        <div><p class="eyebrow">A YEAR IN NUMBERS</p><h2>Reading stats<span>.</span></h2></div>
+        <div class="stats-year-nav"><button class="calendar-arrow" id="prevStatsYear" aria-label="이전 해">←</button><strong id="statsYearLabel">2026년</strong><button class="calendar-arrow" id="nextStatsYear" aria-label="다음 해">→</button></div>
+      </div>
+      <div class="kpi-grid" id="kpiGrid"></div>
+      <p class="stats-note" id="statsNote" hidden>날짜별 쪽수를 기록하면 하루 평균이 계산돼요. 캘린더에서 날짜를 누르면 바로 입력할 수 있어요.</p>
+      <div class="stats-panels">
+        <div class="stats-card"><h3>장르별 독서</h3><div id="genreStats"></div></div>
+        <div class="stats-card"><h3 id="monthlyTitle">월별 독서량</h3><div id="monthlyStats"></div></div>
+      </div>
+    </section>
+
     <section class="closing-note">
       <p class="eyebrow">UNTIL THE NEXT PAGE</p>
       <p>THE READING ROOM</p>
@@ -116,12 +129,11 @@
       <input type="hidden" id="bookId">
       <label>책 제목<input id="title" required placeholder="예: 파반느"></label>
       <label>저자<input id="author" placeholder="저자 이름"></label>
-      <div class="form-row">
-        <label>장르<select id="genre"></select></label>
-        <label>독서 기록 날짜 <small>(책을 읽은 날을 모두 추가하세요)</small>
-          <div class="reading-date-entry"><input id="readingDateInput" type="date"><button type="button" class="add-quote-button" id="addReadingDate">+ 날짜 추가</button></div>
-          <div id="readingDateList" class="reading-date-list"></div>
-        </label>
+      <label>장르<select id="genre"></select></label>
+      <div class="field">
+        <span class="field-title">독서 기록 날짜 <small>(책을 읽은 날을 모두 추가하세요 · 과거 날짜도 OK)</small></span>
+        <div class="reading-date-entry"><input id="readingDateInput" type="date"><input id="readingPagesInput" type="number" min="0" inputmode="numeric" placeholder="그날 읽은 쪽수"><button type="button" class="add-quote-button" id="addReadingDate">+ 날짜 추가</button></div>
+        <div id="readingDateList" class="reading-date-list"></div>
       </div>
       <div class="form-row">
         <label>출판사<input id="publisher" placeholder="출판사"></label>
